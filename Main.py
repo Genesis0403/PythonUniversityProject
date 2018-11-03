@@ -9,8 +9,8 @@ from entities.Entity import Entity
 
 window = Window()
 clock = pg.time.Clock()
-pg.key.set_repeat(10,10)
-size = [50,50]
+pg.key.set_repeat(10, 10)
+size = [100,100]
 speed = 3
 entity = Entity(size)
 
@@ -28,6 +28,8 @@ while 1:
 			entity.move(speed, 0)
 		if pg.key.get_pressed()[pg.K_LEFT]:
 			entity.move(-speed, 0)
+		#if pg.event.get().get_pressed(pg.MOUSEBUTTONDOWN):
+
 		entity.rotate()
 		window.flip(entity)
 		pg.display.update()

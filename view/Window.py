@@ -10,7 +10,7 @@ pygame.init()
 
 class Window:
 	def __init__(self):
-		self.size = 500, 500#GetSystemMetrics(0), GetSystemMetrics(1)
+		self.size = GetSystemMetrics(0), GetSystemMetrics(1)
 		self.screen = pygame.display.set_mode(self.size)
 
 	def update(self):
