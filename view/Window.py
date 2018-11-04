@@ -19,5 +19,13 @@ class Window:
 	def flip(self, entity):
 		self.screen.blit(entity.cpyimage, entity.rect)
 
+	def update_entities(self, entities):
+		for sprite in entities:
+			self.flip(sprite)
+
+	def update_bullets(self, bullets):
+		for bullet in bullets:
+			self.screen.blit(bullet.bullet, bullet.rectangle)
+
 	def screen(self):
 		return self.screen

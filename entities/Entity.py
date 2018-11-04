@@ -4,6 +4,8 @@ import math
 """
 	An abstract class for future use.
 	Now it's using for testing purpose
+	Angle formula: ->
+	self.angle = math.degrees(-math.atan2(mouse_y - self.rect.centery, mouse_x - self.rect.centerx))
 """
 
 class Entity(pygame.sprite.Sprite):
@@ -18,14 +20,14 @@ class Entity(pygame.sprite.Sprite):
 		self.cpyimage = self.image.copy()
 		self.rect = self.image.get_rect(center=(50,50))
 		self.direction = Vector2(1,0)
-		self.pos = Vector2(self.rect.centerx, self.rect.centery + 20)
+		self.pos = Vector2(self.rect.centerx, self.rect.centery)
 		self.angle = 0
 
 	def move(self, x, y):
 		self.rect = self.rect.move(x, y)
 
-	def getPos(self):
-		return self.rect.get_pos();
+	def position(self):
+		return self.rect.centerx, self.rect.centery;
 
 	def image(self):
 		return self.cpyimage
@@ -39,8 +41,10 @@ class Entity(pygame.sprite.Sprite):
 	def rotate(self):
 		mouseVec = pygame.mouse.get_pos() - self.pos
 		redius, self.angle = mouseVec.as_polar()
-		#self.angle = math.degrees(-math.atan2(mouse_y - self.rect.centery, mouse_x - self.rect.centerx))
 		self.cpyimage = pygame.transform.rotozoom(self.image, -self.angle, 1)
-		print(self.angle)
+		print(-self.angle)
 		self.rect = self.cpyimage.get_rect(center=self.rect.center)
-		self.pos = Vector2(self.rect.centerx, self.rect.centery + 20)
+		self.pos = Vector2(self.rect.centerx, self.rect.centery)
+
+	def update(self):
+		self.rotate()
