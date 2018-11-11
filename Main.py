@@ -14,11 +14,11 @@ entity = Entity(size)
 entities = pg.sprite.Group()
 entities.add(entity)
 bullets = pg.sprite.Group()
-bullet_timer = 0
+old_time = 0
+new_time = pg.time.get_ticks()
 
 while 1:
-	clock.tick(60)
-	dt = clock.tick(60) / 1000
+	
 	for event in pg.event.get():
 		if event.type == pg.QUIT:
 			sys.exit()
@@ -31,18 +31,15 @@ while 1:
 		if pg.key.get_pressed()[pg.K_a]:
 			entity.move(-speed, 0)
 		if pg.mouse.get_pressed()[0]:
-			if (bullet_timer - dt <= 0):
-				bullet_timer = 0
-				pos, angle = entity.position(), entity.angle
-				bullets.add(Bullet(pos, angle, 20))
-			bullet_time = 0.1
-
+			old_time = new_time
+			new_time = pg.time.get_ticks()
+			if (new_time - old_time >= 50):
+				bullets.add(entity.fire())
+	
 	window.update()
 	entities.update()
 	bullets.update()
-	window.update_entities(entities)
-	window.update_bullets(bullets)
-	#allsprites.draw(window.screen)
+	entities.draw(window.screen)
+	bullets.draw(window.screen)
+	clock.tick(60)
 	pg.display.update()
-
-	
