@@ -11,27 +11,22 @@ import math
 
 class Entity(pygame.sprite.Sprite):
 	
-	def __init__(self, size,):
+	def __init__(self, size, image):
 		pygame.sprite.Sprite.__init__(self)
 
 		self.cpyimage = pygame.Surface(size)
-		self.cpyimage = pygame.image.load("entities/b.png")
+		self.cpyimage = pygame.image.load(image)
 		self.cpyimage = pygame.transform.scale(self.cpyimage, size)
-		#self.cpyimage.fill([255,255,255])
 		self.image = self.cpyimage.copy()
-		self.rect = self.cpyimage.get_rect(center=(50,50))
-		self.direction = Vector2(1,0)
+		self.rect = self.cpyimage.get_rect(center=(200, 200))
 		self.pos = Vector2(self.rect.centerx, self.rect.centery)
 		self.angle = 0
 
 	def move(self, x, y):
 		self.rect = self.rect.move(x, y)
 
-	def fire(self):
-		return Bullet(self.position(), self.angle, 20)
-
 	def position(self):
-		return self.rect.centerx, self.rect.centery;
+		return self.pos
 
 	def image(self):
 		return self.image
