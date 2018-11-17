@@ -7,6 +7,7 @@ class Bullet(pygame.sprite.Sprite):
 	def __init__(self, position, angle, speed):
 		pygame.sprite.Sprite.__init__(self)
 
+		self.damage = 30
 		self.image = pygame.Surface(size)
 		self.pos = Vector2(position)
 		self.rect = self.image.get_rect(center=position)
@@ -15,6 +16,9 @@ class Bullet(pygame.sprite.Sprite):
 		self.speed = speed
 		self.direction = pygame.mouse.get_pos() - self.pos  	
 		self.direction = self.direction.normalize()
+
+	def damage(self):
+		return self.damage
 
 	def rotate(self):
 		mouseVec = pygame.mouse.get_pos() - self.pos

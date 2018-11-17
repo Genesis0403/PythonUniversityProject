@@ -18,12 +18,12 @@ class Entity(pygame.sprite.Sprite):
 		self.cpyimage = pygame.image.load(image)
 		self.cpyimage = pygame.transform.scale(self.cpyimage, size)
 		self.image = self.cpyimage.copy()
-		self.rect = self.cpyimage.get_rect(center=(200, 200))
-		self.pos = Vector2(self.rect.centerx, self.rect.centery)
+		#self.rect = self.cpyimage.get_rect(center=(200, 200))
+		#self.pos = Vector2(self.rect.centerx, self.rect.centery)
 		self.angle = 0
 
-	def move(self, x, y):
-		self.rect = self.rect.move(x, y)
+	def getDamage(self, damage):
+		pass
 
 	def position(self):
 		return self.pos

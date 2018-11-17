@@ -5,14 +5,14 @@ from entities.Entity import Entity
 import math
 
 class Enemy(Entity):
-	def __init__(self, size, image):
+	def __init__(self, size, image, spawn):
 		Entity.__init__(self, size, image)
 		self.health = 100
 		self.speed = 0.01
-		self.rect = self.cpyimage.get_rect(center=(100, 100))
-		self.pos = Vector2(1, 0)
+		self.rect = self.cpyimage.get_rect(center=spawn)
+		#self.cpyimage.fill([255,255,255])
+		self.pos = Vector2(spawn)
 		self.diraction = Vector2(1,0)
-
 
 	def rotate(self, player_pos):
 		player = Vector2(player_pos)
@@ -22,7 +22,12 @@ class Enemy(Entity):
 		self.image = pygame.transform.rotozoom(self.cpyimage, -self.angle, 1)
 		#print(-self.angle)
 		self.rect = self.image.get_rect(center=self.rect.center)
-		#self.pos = Vector2(self.rect.center)
+		self.pos = Vector2(self.rect.center)
+
+	def getDamage(self, damage):
+		self.health -= damage
+		if (self.health < 0):
+			pygame.sprite.Sprite.kill(self)
 
 	def follow_player(self):
 		self.pos += self.diraction * self.speed
