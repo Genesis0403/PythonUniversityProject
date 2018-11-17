@@ -15,7 +15,7 @@ class Window:
 		pygame.display.set_caption('Last Stand')
 
 	def update(self):
-		self.screen.fill([134,228,225])
+		self.screen.fill([67,87,68])
 	
 	def get_size(self):
 		return self.size

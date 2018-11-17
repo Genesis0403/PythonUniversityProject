@@ -7,7 +7,9 @@ import math
 class Enemy(Entity):
 	def __init__(self, size, image, spawn):
 		Entity.__init__(self, size, image)
+		self.old_time = pygame.time.get_ticks()
 		self.health = 100
+		self.damage = 10
 		self.speed = 0.01
 		self.rect = self.cpyimage.get_rect(center=spawn)
 		#self.cpyimage.fill([255,255,255])
@@ -28,6 +30,8 @@ class Enemy(Entity):
 		self.health -= damage
 		if (self.health < 0):
 			pygame.sprite.Sprite.kill(self)
+			return True
+		return False
 
 	def follow_player(self):
 		self.pos += self.diraction * self.speed
@@ -37,5 +41,9 @@ class Enemy(Entity):
 		self.rotate(player_pos)
 		self.follow_player()
 
-	def bite(self):
-		pass
+	def dealDamage(self):
+		new_time = pygame.time.get_ticks()
+		if new_time - self.old_time >= 1000:
+			self.old_time = new_time
+			return self.damage
+		return 0
