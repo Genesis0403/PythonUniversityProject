@@ -15,8 +15,8 @@ class Entity(pygame.sprite.Sprite):
 		pygame.sprite.Sprite.__init__(self)
 
 		self.cpyimage = pygame.Surface(size)
-		self.cpyimage = pygame.image.load(image)
-		self.cpyimage = pygame.transform.scale(self.cpyimage, size)
+		self.cpyimage = image
+		self.cpyimage = self.cpyimage
 		self.image = self.cpyimage.copy()
 		#self.rect = self.cpyimage.get_rect(center=(200, 200))
 		#self.pos = Vector2(self.rect.centerx, self.rect.centery)

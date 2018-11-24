@@ -6,14 +6,18 @@ import math
 
 class Player(Entity):
 	def __init__(self, size, image):
+		image = pygame.transform.scale(pygame.image.load(image), size)
 		Entity.__init__(self, size, image)
-		#self.cpyimage.fill([255,255,255])
 		self.size = size
+		self.isAlive = True
 		self.health = 200
 		self.speed = 5
 		self.damage = 30
 		self.rect = self.cpyimage.get_rect(center=(600, 400))
 		self.pos = Vector2(self.rect.centerx, self.rect.centery)
+
+	def getHealth(self):
+		return self.health
 
 	def buffDamage(self):
 		if self.damage <= 80:
@@ -21,10 +25,8 @@ class Player(Entity):
 
 	def getDamage(self, damage):
 		self.health -= damage
-		print(self.health)
-		if (self.health < 0):
-			pass
-			#pygame.sprite.Sprite.kill(self)
+		if (self.health <= 0):
+			self.isAlive = False
 		return False
 
 	def move(self):

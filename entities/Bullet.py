@@ -24,7 +24,6 @@ class Bullet(pygame.sprite.Sprite):
 		mouseVec = pygame.mouse.get_pos() - self.pos
 		redius, self.angle = mouseVec.as_polar()
 		self.image = pygame.transform.rotate(self.image, self.angle)
-		#print(-self.angle)
 		self.rect = self.image.get_rect(center=self.rect.center)
 
 	def update(self):
