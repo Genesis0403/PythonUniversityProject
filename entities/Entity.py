@@ -41,7 +41,6 @@ class Entity(pygame.sprite.Sprite):
 		mouseVec = pygame.mouse.get_pos() - self.pos
 		redius, self.angle = mouseVec.as_polar()
 		self.image = pygame.transform.rotozoom(self.cpyimage, -self.angle, 1)
-		#print(-self.angle)
 		self.rect = self.image.get_rect(center=self.rect.center)
 		self.pos = Vector2(self.rect.centerx, self.rect.centery)
 

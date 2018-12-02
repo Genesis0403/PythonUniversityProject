@@ -2,6 +2,7 @@ import pygame
 import sys
 import random
 from view.Window import Window
+from view.Hud import Hud
 from entities.Entity import Entity
 from entities.Bullet import Bullet
 from entities.Player import Player
@@ -16,6 +17,7 @@ pygame.init()
 class Game:
 	def __init__(self):
 		self.window = Window()
+		self.hud = Hud(self.window.screen, self.window.size)
 		self.statistics = Statistic()
 		self.clock = pygame.time.Clock()
 		pygame.key.set_repeat(40, 30)
@@ -80,13 +82,14 @@ class Game:
 		pygame.mixer.Channel(0).set_volume(0.25)
 		pygame.mixer.Channel(0).play(pygame.mixer.Sound('music.wav'), 99999)
 		running = True
+		paused = False
 		while running:
 			
 			self.gameUpdate()
+
 			for event in pygame.event.get():
-				if event.type == pygame.QUIT:
+				if event.type == pygame.QUIT or pygame.key.get_pressed()[pygame.K_ESCAPE]:
 					sys.exit()
-				
 
 				self.player.move()
 				
@@ -99,22 +102,23 @@ class Game:
 						pygame.mixer.music.play()
 						self.old_time = self.new_time
 
-			if self.player.isAlive:
+			if self.player.isAlive and not paused:
 			
 				self.collisions(self.enemies, self.bullets, False, True)
 				self.collisions(self.entities, self.enemies, False, False)
 				self.enemies_collision(self.enemies)
 
 				
+				self.window.update()
 				self.entities.update()
 				self.enemies.update(self.player.position())
 				self.bullets.update()
-				self.window.update(self.statistics, self.player)
 
 				self.entities.draw(self.window.screen)
 				self.enemies.draw(self.window.screen)
 				self.bullets.draw(self.window.screen)
-				
+				self.hud.update(self.statistics, self.player)
+			
 			self.clock.tick(60)
 			pygame.display.update()
 
